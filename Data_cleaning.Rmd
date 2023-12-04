@@ -1,0 +1,43 @@
+---
+title: "Data Cleaning and Visuals"
+author: "Lillian Makhoul"
+date: "2023-12-04"
+output: pdf_document
+---
+
+## Data Cleaning
+
+```{r}
+# filtering data to only rocky mountain region
+MRA_Mission <- read.csv("MRA_Mission_Data_3_0_0.csv")
+filter <- MRA_Mission$Region == "Rocky Mountain Region"
+MRA_Mission <- MRA_Mission[filter,]
+
+
+# filter out na values in x and y
+MRA_Mission <- na.omit(MRA_Mission)
+
+# filter out outliers
+filter <- MRA_Mission$y >= 38
+MRA_Mission = MRA_Mission[filter,]
+filter <- MRA_Mission$y < 42
+MRA_Mission = MRA_Mission[filter,]
+
+write.csv(MRA_Mission, "mission_data.csv")
+```
+
+## Sort into types of incidents
+
+```{r}
+SEARCH <- MRA_Mission[MRA_Mission$Type.of.Incident == "SEARCH",]
+RESCUE <- MRA_Mission[MRA_Mission$Type.of.Incident == "RESCUE",]
+RECOVERY <- MRA_Mission[MRA_Mission$Type.of.Incident == "RECOVERY",]
+MEDICAL_AID <- MRA_Mission[MRA_Mission$Type.of.Incident == "MEDICAL_AID",]
+SWIFTWATER_RESCUE <- MRA_Mission[MRA_Mission$Type.of.Incident == "SWIFTWATER_RESCUE",]
+SEND_ACTIVATION <- MRA_Mission[MRA_Mission$Type.of.Incident == "SEND_ACTIVATION",]
+AVALANCHE <- MRA_Mission[MRA_Mission$Type.of.Incident == "AVALANCHE",]
+PLB_ACTIVATION <- MRA_Mission[MRA_Mission$Type.of.Incident == "PLB_ACTIVATION",]
+CAR_AIRCRAFT_DOWN_ELT_ACTIVATIONOVER <- MRA_Mission[MRA_Mission$Type.of.Incident == "AIRCRAFT_DOWN/ELT_ACTIVATION",]
+MINE_SEARCH_RESCUE <- MRA_Mission[MRA_Mission$Type.of.Incident == "MINE_SEARCH/RESCUE",]
+```
+
